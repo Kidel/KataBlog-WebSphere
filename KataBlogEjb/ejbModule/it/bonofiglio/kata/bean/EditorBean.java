@@ -1,5 +1,6 @@
-package it.bonofiglio.kata.repository;
+package it.bonofiglio.kata.bean;
 
+import it.bonofiglio.kata.bean.EditorBeanLocal;
 import it.bonofiglio.kata.model.*;
 import it.bonofiglio.kata.model.controller.*;
 
@@ -12,14 +13,14 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 
 @Stateless
-public class EditorFacade implements EditorFacadeLocal {
+public class EditorBean implements EditorBeanLocal {
 	
 	@PersistenceUnit(unitName = "KataBlog")
 	private EntityManagerFactory entityManagerFactory;
 	
 	private EditorManager eman;
 	
-    public EditorFacade() { 
+    public EditorBean() { 
     	this.entityManagerFactory = Persistence.createEntityManagerFactory("KataBlog");
     	this.eman = new EditorManager(this.entityManagerFactory);
     }

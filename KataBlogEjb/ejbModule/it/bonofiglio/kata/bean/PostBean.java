@@ -1,8 +1,9 @@
-package it.bonofiglio.kata.repository;
+package it.bonofiglio.kata.bean;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import it.bonofiglio.kata.bean.PostBeanLocal;
 import it.bonofiglio.kata.model.*;
 import it.bonofiglio.kata.model.controller.*;
 
@@ -10,16 +11,18 @@ import javax.ejb.Stateless;
 import javax.persistence.*;
 
 @Stateless
-public class PostFacade implements PostFacadeLocal {
+public class PostBean implements PostBeanLocal {
 	
 	@PersistenceUnit(unitName = "KataBlog")
 	private EntityManagerFactory entityManagerFactory;
 	
 	private PostManager pman;
+    private EditorManager eman;
 	
-    public PostFacade() { 
+    public PostBean() { 
     	this.entityManagerFactory = Persistence.createEntityManagerFactory("KataBlog");
 		this.pman = new PostManager(this.entityManagerFactory);
+		this.eman = new EditorManager(this.entityManagerFactory);
     }
     
     public Post createPost(String title, String content, String slug, Editor author) {
@@ -35,6 +38,17 @@ public class PostFacade implements PostFacadeLocal {
     
     public Post createPost(String title, String content, String slug, Editor author, List<Tag> tags) {
 		Post p = new Post(title, content, slug, author, tags);
+		try {
+			this.pman.createPost(p);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return p;
+	}
+    
+    public Post createPost(String title, String content, String slug, Long authorId) {
+		Post p = new Post(title, content, slug, this.eman.findEditorById(authorId));
 		try {
 			this.pman.createPost(p);
 		} catch (Exception e) {

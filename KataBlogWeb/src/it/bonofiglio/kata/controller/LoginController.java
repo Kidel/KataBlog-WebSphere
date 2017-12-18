@@ -1,7 +1,8 @@
 package it.bonofiglio.kata.controller;
 
-import it.bonofiglio.kata.bean.*;
-import it.bonofiglio.kata.utils.*;
+import it.bonofiglio.kata.bean.LoginBeanLocal;
+import it.bonofiglio.kata.utils.JsonConfigParser;
+import it.bonofiglio.kata.utils.ServletUtils;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,30 +15,36 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class UserController
+ * Servlet implementation class LoginController
  */
-public class EditorController extends HttpServlet {
+public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	private EditorBeanLocal uf;
+	private LoginBeanLocal lf;
        
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public LoginController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		try {
-		String paramValue = request.getParameter("id");
-		if (paramValue==null) {
-			out.println("{\"status\": \"success\", \"message\": " + uf.getAllEditors().toString() + "}");
-		}
+		if(this.lf.getCurrentEditor()!=null) 
+			out.println("{\"status\": \"success\"}");
 		else 
-			out.println("{\"status\": \"success\", \"message\": " + uf.getEditor(Long.parseLong(paramValue)).toString() + "}");
-		}
-		catch(Exception e) {
-			System.out.println("DEBUG: " + e);
-			out.println("{\"status\": \"error\", \"message\": \"" + e + "\"}");
-		}
+			out.println("{\"status\": \"error\"}");
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		
@@ -46,14 +53,13 @@ public class EditorController extends HttpServlet {
 		Map<String, String> params = (new JsonConfigParser()).parse(body);
 		
 		try {
-			String name = params.get("name");
 			String email = params.get("email");
 			String password = params.get("password");
 			
-			System.out.println("DEBUG: adding Editor with parameters: name=" + name + ", email=" + email + ", password=" + password);
-			
-			this.uf.createEditor(name, email, password);
-			out.println("{\"status\": \"success\"}");
+			if(this.lf.login(email, password))
+				out.println("{\"status\": \"success\"}");
+			else 
+				out.println("{\"status\": \"error\", \"message\": \"Invalid username or password\"}");
 		}
 		catch(Exception e) {
 			System.out.println("DEBUG: " + e);

@@ -1,7 +1,7 @@
 package it.bonofiglio.kata.controller;
 
-import it.bonofiglio.kata.repository.EditorFacadeLocal;
-import it.bonofiglio.kata.repository.PostFacadeLocal;
+import it.bonofiglio.kata.bean.EditorBeanLocal;
+import it.bonofiglio.kata.bean.PostBeanLocal;
 import it.bonofiglio.kata.utils.JsonConfigParser;
 import it.bonofiglio.kata.utils.ServletUtils;
 
@@ -22,10 +22,10 @@ public class PostController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	private PostFacadeLocal pf;
+	private PostBeanLocal pf;
 	
 	@EJB
-	private EditorFacadeLocal uf;
+	private EditorBeanLocal uf;
        
     public PostController() {
         super();
@@ -43,7 +43,7 @@ public class PostController extends HttpServlet {
 		}
 		catch(Exception e) {
 			System.out.println("DEBUG: " + e);
-			out.println("{\"status\": \"error\", \"message\": " + e + "}");
+			out.println("{\"status\": \"error\", \"message\": \"" + e + "\"}");
 		}
 	}
 
@@ -60,12 +60,12 @@ public class PostController extends HttpServlet {
 			String slug = params.get("slug");
 			Long authorId = Long.parseLong(params.get("authorId"));
 			
-			pf.createPost(title, content, slug, uf.getEditor(authorId));
+			this.pf.createPost(title, content, slug, uf.getEditor(authorId));
 			out.println("{\"status\": \"success\"}");
 		}
 		catch(Exception e) {
 			System.out.println("DEBUG: " + e);
-			out.println("{\"status\": \"error\", \"message\": " + e + "}");
+			out.println("{\"status\": \"error\", \"message\": \"" + e + "\"}");
 		}
 	}
 

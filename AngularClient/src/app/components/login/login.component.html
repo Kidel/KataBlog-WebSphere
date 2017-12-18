@@ -1,17 +1,22 @@
-<form (submit)="submitLogin($event)">
-	<div class="input">
-		<label>Email</label>
-		<input type="email" name="email">
+<div *ngIf="globals.logged;else welcomeMessage">
+	</div><form (submit)="submitLogin($event)">
+		<div class="input">
+			<label>Email</label>
+			<input type="email" name="email">
+		</div>
+		<div class="input">
+			<label>Password</label>
+			<input type="password" name="password">
+		</div>
+		<div class="input">
+			<input type="submit" value="Login">
 	</div>
-	<div class="input">
-		<label>Password</label>
-		<input type="password" name="password">
-	</div>
-	<div class="input">
-		<input type="submit" value="Login">
-  </div>
-</form>
-
-<p>
-    {{statusMessage}}
-</p>
+	</form>
+	<p>
+		{{statusMessage}}
+	</p>
+</div>
+<ng-template #welcomeMessage>
+	Welcome!
+	<a href="#" (click)="submitLogout($event)">Logout</a>
+</ng-template>

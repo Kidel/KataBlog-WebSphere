@@ -53,4 +53,10 @@ public class LoginController extends HttpServlet {
 		}
 	}
 
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		this.lf.setCurrentEditor(null);
+		out.println("{\"status\": \"success\"}");
+	}
+
 }

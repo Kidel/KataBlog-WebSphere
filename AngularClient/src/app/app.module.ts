@@ -1,37 +1,30 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule, Routes } from '@angular/router';
+
+import { Globals } from './globals';
 
 import { AppComponent } from './app.component';
 import { EditorComponent } from './components/editor/editor.component';
 import { PostComponent } from './components/post/post.component';
 import { LoginComponent } from './components/login/login.component';
-
-const appRoutes:Routes = [
-  {
-    path: '',
-    component: LoginComponent
-  },
-  {
-    path: 'dashboard',
-    component: PostComponent
-  }
-];
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EditorComponent,
     PostComponent,
-    LoginComponent
+    LoginComponent,
+    NavbarComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    HttpClientModule
   ],
-  providers: [],
+  providers: [Globals],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

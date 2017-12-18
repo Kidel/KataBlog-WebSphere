@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/retry';
-import { Router } from '@angular/router';
+
+import { Globals } from '../../globals';
 
 @Component({
   selector: 'app-login',
@@ -10,18 +11,29 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private globals: Globals, private http: HttpClient) { }
 
   statusMessage:String = "";
 
   requestResponseBehavior = data => {
     if(data['status'] !== 'success') { 
-      console.log("Not logged in");
+      console.log("Error");
       console.log(data['message']); 
     }
     else {
-      console.log("Already logged in");
-      this.router.navigate(['dashboard']);
+      console.log("Success");
+      this.globals.logged=true
+    }
+  }
+
+  logoutResponseBehavior = data => {
+    if(data['status'] !== 'success') { 
+      console.log("Error");
+      console.log(data['message']); 
+    }
+    else {
+      console.log("Success");
+      this.globals.logged=false
     }
   }
 
@@ -33,7 +45,7 @@ export class LoginComponent implements OnInit {
     }
     else {
       console.log("Logged in");
-      this.router.navigate(['dashboard']);
+      this.globals.logged=true
     }
   }
 
@@ -56,7 +68,15 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  logout() {
+    this.http.delete('../login').retry(3).subscribe(
+      this.logoutResponseBehavior, 
+      this.requestErrorBehavior
+    );
+  }
+
   ngOnInit() {
+    console.log("Checking login...");
     this.checkLogin();
   }
 
@@ -65,7 +85,14 @@ export class LoginComponent implements OnInit {
     const email = e.target.elements['email'].value;
     const password = e.target.elements['password'].value;
 
+    console.log("Logging in...");
     this.login({email: email, password: password});
+  }
+
+  submitLogout(e) { 
+    e.preventDefault();
+    console.log("Logging out...");
+    this.logout();
   }
 
 }

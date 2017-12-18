@@ -14,37 +14,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class LoginController
- */
+
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
 	private LoginBeanLocal lf;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    public LoginController() { }
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		if(this.lf.getCurrentEditor()!=null) 
 			out.println("{\"status\": \"success\"}");
 		else 
-			out.println("{\"status\": \"error\"}");
+			out.println("{\"status\": \"error\", \"message\": \"Not logged in\"}");
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		

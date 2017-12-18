@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/retry';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-editor',
@@ -9,7 +10,7 @@ import 'rxjs/add/operator/retry';
 })
 export class EditorComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   editors = [];
 
@@ -62,6 +63,11 @@ export class EditorComponent implements OnInit {
     const password = e.target.elements['password'].value;
 
     this.addEditor({name: name, email: email, password: password});
+  }
+
+  logout(e) { // TODO move to a dashboard component // TODO logout
+    e.preventDefault();
+    this.router.navigate(['']);
   }
 
 }

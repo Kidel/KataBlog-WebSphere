@@ -66,5 +66,10 @@ public class Tag implements Serializable {
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
 	}
+	
+	@Override
+	public String toString() {
+	   return "{\"name\": \"" + this.name + "\"}";
+	}
 
 }

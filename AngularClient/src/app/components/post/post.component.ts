@@ -15,9 +15,19 @@ export class PostComponent implements OnInit {
 
   requestResponseBehavior = data => {
     if (data['status'] === 'success') {
+      console.log('Request successful');
       this.posts = data['message'];
     } else {
       console.log('Error from the server');
+    }
+  }
+
+  postResponseBehavior = data => {
+    if (data['status'] === 'success') {
+      console.log('Post successful');
+    } else {
+      console.log('Error from the server');
+      console.log(data['message']);
     }
   }
 
@@ -26,12 +36,28 @@ export class PostComponent implements OnInit {
     console.log(err);
   }
 
-  ngOnInit() {
-    // Make the HTTP request:
+  getPosts() {
     this.http.get('../posts').retry(3).subscribe(
       this.requestResponseBehavior,
       this.requestErrorBehavior
     );
+  }
+
+  addEditor(data) {
+    this.http.post('../posts', data).retry(3).subscribe(
+      this.postResponseBehavior,
+      this.requestErrorBehavior
+    );
+  }
+
+  ngOnInit() {
+    this.getPosts();
+  }
+
+  submitPost(e) {
+    e.preventDefault();
+
+    // TODO
   }
 
 }

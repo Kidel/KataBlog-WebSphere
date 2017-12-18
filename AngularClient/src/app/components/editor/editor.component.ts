@@ -15,9 +15,20 @@ export class EditorComponent implements OnInit {
 
   requestResponseBehavior = data => {
     if (data['status'] === 'success') {
+      console.log('Request successful');
       this.editors = data['message'];
     } else {
       console.log('Error from the server');
+    }
+  }
+
+  postResponseBehavior = data => {
+    if (data['status'] === 'success') {
+      console.log('Post successful');
+      this.getEditors();
+    } else {
+      console.log('Error from the server');
+      console.log(data['message']);
     }
   }
 
@@ -26,12 +37,31 @@ export class EditorComponent implements OnInit {
     console.log(err);
   }
 
-  ngOnInit() {
-    // Make the HTTP request:
+  getEditors() {
     this.http.get('../editors').retry(3).subscribe(
       this.requestResponseBehavior,
       this.requestErrorBehavior
     );
+  }
+
+  addEditor(data) {
+    this.http.post('../editors', data).retry(3).subscribe(
+      this.postResponseBehavior,
+      this.requestErrorBehavior
+    );
+  }
+
+  ngOnInit() {
+    this.getEditors();
+  }
+
+  submitEditor(e) {
+    e.preventDefault();
+    const name = e.target.elements['name'].value;
+    const email = e.target.elements['email'].value;
+    const password = e.target.elements['password'].value;
+
+    this.addEditor({name: name, email: email, password: password});
   }
 
 }

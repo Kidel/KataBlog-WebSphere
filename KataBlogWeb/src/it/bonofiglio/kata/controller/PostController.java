@@ -2,9 +2,12 @@ package it.bonofiglio.kata.controller;
 
 import it.bonofiglio.kata.repository.EditorFacadeLocal;
 import it.bonofiglio.kata.repository.PostFacadeLocal;
+import it.bonofiglio.kata.utils.JsonConfigParser;
+import it.bonofiglio.kata.utils.ServletUtils;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -39,23 +42,30 @@ public class PostController extends HttpServlet {
 			out.println("{\"status\": \"success\", \"message\": " + pf.getPost(Long.parseLong(paramValue)).toString() + "}");
 		}
 		catch(Exception e) {
-			out.println("{\"status\": \"error\", \"message\": " + e.getMessage() + "}");
+			System.out.println("DEBUG: " + e);
+			out.println("{\"status\": \"error\", \"message\": " + e + "}");
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
+		
+		String body = ServletUtils.getBody(request);
+		System.out.println("DEBUG: body: " + body);
+		Map<String, String> params = (new JsonConfigParser()).parse(body);
+		
 		try {
-			String title = request.getParameter("title");
-			String content = request.getParameter("content");
-			String slug = request.getParameter("slug");
-			Long authorId = Long.parseLong(request.getParameter("authorId"));
+			String title = params.get("title");
+			String content = params.get("content");
+			String slug = params.get("slug");
+			Long authorId = Long.parseLong(params.get("authorId"));
 			
 			pf.createPost(title, content, slug, uf.getEditor(authorId));
 			out.println("{\"status\": \"success\"}");
 		}
 		catch(Exception e) {
-			out.println("{\"status\": \"error\", \"message\": " + e.getMessage() + "}");
+			System.out.println("DEBUG: " + e);
+			out.println("{\"status\": \"error\", \"message\": " + e + "}");
 		}
 	}
 

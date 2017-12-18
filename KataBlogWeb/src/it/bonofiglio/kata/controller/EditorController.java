@@ -1,9 +1,11 @@
 package it.bonofiglio.kata.controller;
 
 import it.bonofiglio.kata.repository.*;
+import it.bonofiglio.kata.utils.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -24,27 +26,38 @@ public class EditorController extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 		String paramValue = request.getParameter("id");
-		if (paramValue==null) 
+		if (paramValue==null) {
 			out.println("{\"status\": \"success\", \"message\": " + uf.getAllEditors().toString() + "}");
+		}
 		else 
 			out.println("{\"status\": \"success\", \"message\": " + uf.getEditor(Long.parseLong(paramValue)).toString() + "}");
 		}
 		catch(Exception e) {
-			out.println("{\"status\": \"error\", \"message\": " + e.getMessage() + "}");
+			System.out.println("DEBUG: " + e);
+			out.println("{\"status\": \"error\", \"message\": " + e + "}");
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
+		
+		String body = ServletUtils.getBody(request);
+		System.out.println("DEBUG: body: " + body);
+		Map<String, String> params = (new JsonConfigParser()).parse(body);
+		
 		try {
-			String name = request.getParameter("name");
-			String email = request.getParameter("email");
-			String password = request.getParameter("password");
+			String name = params.get("name");
+			String email = params.get("email");
+			String password = params.get("password");
+			
+			System.out.println("DEBUG: adding Editor with parameters: name=" + name + ", email=" + email + ", password=" + password);
+			
 			uf.createEditor(name, email, password);
 			out.println("{\"status\": \"success\"}");
 		}
 		catch(Exception e) {
-			out.println("{\"status\": \"error\", \"message\": " + e.getMessage() + "}");
+			System.out.println("DEBUG: " + e);
+			out.println("{\"status\": \"error\", \"message\": " + e + "}");
 		}
 	}
 

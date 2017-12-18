@@ -104,5 +104,10 @@ public class Post implements Serializable {
 	public void setTags(List<Tag> tags) {
 		this.tags = tags;
 	}
+	
+	@Override
+	public String toString() {
+	   return "{\"title\": \"" + this.title + "\", \"content\": \"" + this.content + "\"}";
+	}
 
 }

@@ -1,4 +1,5 @@
 Manifest-Version: 1.0
 Class-Path: KataBlogEjb.jar 
- KataBlogEjbClient.jar
+ KataBlogEjbClient.jar 
+ libs/gson-2.6.2.jar
 

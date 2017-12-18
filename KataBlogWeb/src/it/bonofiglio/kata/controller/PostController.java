@@ -34,12 +34,12 @@ public class PostController extends HttpServlet {
 		try {
 		String paramValue = request.getParameter("id");
 		if (paramValue==null) 
-			out.println("{status: success, message: " + pf.getAllPosts().toString() + "}");
+			out.println("{\"status\": \"success\", \"message\": " + pf.getAllPosts().toString() + "}");
 		else 
-			out.println("{status: success, message: " + pf.getPost(Long.parseLong(paramValue)).toString() + "}");
+			out.println("{\"status\": \"success\", \"message\": " + pf.getPost(Long.parseLong(paramValue)).toString() + "}");
 		}
 		catch(Exception e) {
-			out.println("{status: error, message: " + e.getMessage() + "}");
+			out.println("{\"status\": \"error\", \"message\": " + e.getMessage() + "}");
 		}
 	}
 
@@ -52,10 +52,10 @@ public class PostController extends HttpServlet {
 			Long authorId = Long.parseLong(request.getParameter("authorId"));
 			
 			pf.createPost(title, content, slug, uf.getEditor(authorId));
-			out.println("{status: success}");
+			out.println("{\"status\": \"success\"}");
 		}
 		catch(Exception e) {
-			out.println("{status: error, message: " + e.getMessage() + "}");
+			out.println("{\"status\": \"error\", \"message\": " + e.getMessage() + "}");
 		}
 	}
 

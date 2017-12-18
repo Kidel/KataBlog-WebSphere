@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<connections:connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:connections="http://www.ibm.com/websphere/wdo/connections">
+  <connection id="Derby Sample Connection">
+    <development xsi:type="connections:rsc-live-connection" id="Derby Sample Connection_dev" name="Derby Sample Connection"/>
+    <runtime xsi:type="connections:datasource-connection" auto-deploy="true" class-location="${DERBY_JDBC_DRIVER_PATH}/derby.jar" id="Derby Sample Connection_runtime" classname="org.apache.derby.jdbc.EmbeddedConnectionPoolDataSource" database-location="C:\Users\g.bonofiglio\KataBlogDB" database-name="KataBlogDB" jndi-name="jdbc/Derby Sample Connection" resource-reference-name="Derby Sample Connection" server-name="derby:C:\Users\g.bonofiglio\KataBlogDB" sql-vendor-type="36" userid=""/>
+  </connection>
+  <connection id="KataBlogDB">
+    <development xsi:type="connections:rsc-live-connection" id="KataBlogDB_dev" name="KataBlogDB"/>
+    <runtime xsi:type="connections:datasource-connection" auto-deploy="true" class-location="${DERBY_JDBC_DRIVER_PATH}/derby.jar" id="KataBlogDB_runtime" classname="org.apache.derby.jdbc.EmbeddedConnectionPoolDataSource" database-location="C:\Users\g.bonofiglio\KataBlogDB" database-name="KataBlogDB" jndi-name="jdbc/KataBlogDB" resource-reference-name="KataBlogDB" server-name="derby:C:\Users\g.bonofiglio\KataBlogDB" sql-vendor-type="50" userid=""/>
+  </connection>
+</connections:connections>

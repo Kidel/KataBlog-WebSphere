@@ -13,4 +13,5 @@ public interface EditorBeanLocal {
 	public Editor getEditor(Long id);
 	public Editor getEditorFromEmail(String email);
 	public List<Editor> getAllEditors();
+	public boolean deleteAllEditors();
 }

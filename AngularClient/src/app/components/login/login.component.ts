@@ -16,29 +16,34 @@ export class LoginComponent implements OnInit {
   statusMessage:String = "";
 
   requestResponseBehavior = data => {
-    if(data['status'] !== 'success') { 
-      console.log("Error");
-      console.log(data['message']); 
-    }
-    else {
+    console.log(data);
+    if(data['status'] === 'success') { 
       console.log("Success");
       this.globals.logged=true
+      this.statusMessage = "";
+    }
+    else {
+      console.log("Error");
+      console.log(data['message']); 
+      //this.statusMessage = data['message'];
     }
   }
 
   logoutResponseBehavior = data => {
-    if(data['status'] !== 'success') { 
+    if(data['status'] != 'success') { 
       console.log("Error");
       console.log(data['message']); 
+      this.statusMessage = data['message'];
     }
     else {
       console.log("Success");
       this.globals.logged=false
+      this.statusMessage = "";
     }
   }
 
   loginResponseBehavior = data => {
-    if(data['status'] !== 'success') { 
+    if(data['status'] != 'success') { 
       console.log("Error logging in");
       console.log(data['message']); 
       this.statusMessage = data['message'];
@@ -46,6 +51,7 @@ export class LoginComponent implements OnInit {
     else {
       console.log("Logged in");
       this.globals.logged=true
+      this.statusMessage = "";
     }
   }
 

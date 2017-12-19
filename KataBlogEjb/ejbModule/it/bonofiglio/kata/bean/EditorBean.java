@@ -55,5 +55,18 @@ public class EditorBean implements EditorBeanLocal {
 	public List<Editor> getAllEditors(){
 		return new LinkedList<Editor>(eman.findAllEditors());
 	}
+	
+	public boolean deleteAllEditors() {
+		LinkedList<Editor> editors = new LinkedList<Editor>(eman.findAllEditors());
+		for(Editor editor: editors) {
+			try {
+				eman.deleteEditor(editor);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		return true;
+	}
 
 }

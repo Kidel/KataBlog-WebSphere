@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/retry';
 
+import { Globals } from '../../globals';
+
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
@@ -9,7 +11,7 @@ import 'rxjs/add/operator/retry';
 })
 export class EditorComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(private globals: Globals, private http: HttpClient) { }
 
   editors = [];
 
@@ -20,6 +22,15 @@ export class EditorComponent implements OnInit {
     } else {
       console.log('Error from the server');
     }
+  }
+
+  editResponseBehavior = data => {
+    if (data['status'] === 'success') {
+      console.log('Request successful');
+    } else {
+      console.log('Error from the server');
+    }
+    this.getEditors();
   }
 
   postResponseBehavior = data => {
@@ -62,6 +73,14 @@ export class EditorComponent implements OnInit {
     const password = e.target.elements['password'].value;
 
     this.addEditor({name: name, email: email, password: password});
+  }
+
+  deleteAllEditors(e) {
+    e.preventDefault();
+    this.http.delete('../editors').retry(3).subscribe(
+      this.editResponseBehavior,
+      this.requestErrorBehavior
+    );
   }
 
 }

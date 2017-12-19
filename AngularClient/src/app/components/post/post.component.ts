@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/retry';
 
+import { Globals } from '../../globals';
+
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -9,7 +11,7 @@ import 'rxjs/add/operator/retry';
 })
 export class PostComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(private globals: Globals, private http: HttpClient) { }
 
   posts = [];
 
@@ -43,7 +45,7 @@ export class PostComponent implements OnInit {
     );
   }
 
-  addEditor(data) {
+  addPost(data) {
     this.http.post('../posts', data).retry(3).subscribe(
       this.postResponseBehavior,
       this.requestErrorBehavior
@@ -56,8 +58,10 @@ export class PostComponent implements OnInit {
 
   submitPost(e) {
     e.preventDefault();
+    const title = e.target.elements['title'].value;
+    const content = e.target.elements['content'].value;
 
-    // TODO
+    this.addPost({title: title, content: content});
   }
 
 }

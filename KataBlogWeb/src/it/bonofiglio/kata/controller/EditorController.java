@@ -60,5 +60,13 @@ public class EditorController extends HttpServlet {
 			out.println("{\"status\": \"error\", \"message\": \"" + e + "\"}");
 		}
 	}
-
+	
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		if(uf.deleteAllEditors())
+			out.println("{\"status\": \"success\", \"message\": \"\"}");
+		else
+			out.println("{\"status\": \"error\", \"message\": \"Error with deleting an editor\"}");
+			
+	}
 }

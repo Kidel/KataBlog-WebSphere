@@ -1,9 +1,10 @@
 package it.bonofiglio.kata.controller;
 
-import it.bonofiglio.kata.bean.EditorBeanLocal;
+import it.bonofiglio.kata.bean.LoginBeanLocal;
 import it.bonofiglio.kata.bean.PostBeanLocal;
 import it.bonofiglio.kata.utils.JsonConfigParser;
 import it.bonofiglio.kata.utils.ServletUtils;
+import it.bonofiglio.kata.utils.StringUtils;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,12 +26,9 @@ public class PostController extends HttpServlet {
 	private PostBeanLocal pf;
 	
 	@EJB
-	private EditorBeanLocal uf;
+	private LoginBeanLocal lf;
        
-    public PostController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+    public PostController() { }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
@@ -57,10 +55,9 @@ public class PostController extends HttpServlet {
 		try {
 			String title = params.get("title");
 			String content = params.get("content");
-			String slug = params.get("slug");
-			Long authorId = Long.parseLong(params.get("authorId"));
+			String slug = (new StringUtils()).generateSlug(params.get("title"));
 			
-			this.pf.createPost(title, content, slug, uf.getEditor(authorId));
+			this.pf.createPost(title, content, slug, lf.getCurrentEditor());
 			out.println("{\"status\": \"success\"}");
 		}
 		catch(Exception e) {

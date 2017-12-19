@@ -8,9 +8,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 
-/**
- * Session Bean implementation class LoginBean
- */
 @Stateful
 public class LoginBean implements LoginBeanLocal {
 

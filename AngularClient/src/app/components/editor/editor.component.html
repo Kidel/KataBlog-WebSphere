@@ -1,21 +1,53 @@
-<form (submit)="submitEditor($event)">
-  <div class="input">
-    <label>Name</label>
-    <input type="text" name="name">
-  </div>
-	<div class="input">
-		<label>Email</label>
-		<input type="email" name="email">
-	</div>
-	<div class="input">
-		<label>Password</label>
-		<input type="password" name="password">
-	</div>
-	<div class="input">
-		<input type="submit" value="Add Editor">
-  </div>
-</form>
+<div *ngIf="globals.currentPage=='users'">
+		<div class="blog-header">
+			<div class="container">
+				<h1 class="blog-title">
+					Users
+				</h1>
+			</div>
+		</div>
 
-<p>
-    {{editors | json}}
-</p>
+		<main role="main" class="container">
+				<div class="row">
+					<div class="col-sm-8 blog-main">
+
+							<div class="card" *ngFor="let editor of editors">
+								<div class="card-header">
+										{{editor.name}}
+								</div>
+								<div class="card-block my-block">
+									<h4 class="card-title">{{editor.email}}</h4>
+									<small>{{editor.password}}</small>
+								</div>
+							</div>
+		
+					</div>
+		
+					<aside class="col-sm-3 ml-sm-auto blog-sidebar">
+						<div class="sidebar-module sidebar-module-inset">
+
+							<form (submit)="submitEditor($event)">
+								<div class="form-group">
+									<label>Name</label>
+									<input type="text" name="name" class="form-control">
+								</div>
+								<div class="form-group">
+									<label>Email</label>
+									<input type="email" name="email" class="form-control">
+								</div>
+								<div class="form-group">
+									<label>Password</label>
+									<input type="password" name="password" class="form-control">
+								</div>
+								<input type="submit" value="Add Editor" class="btn btn-primary">
+							</form>
+
+						</div>
+					</aside>
+
+				</div>
+			</main>
+
+
+<!--<button (click)="deleteAllEditors($event)" class="btn btn-primary">Delete All</button>-->
+</div>

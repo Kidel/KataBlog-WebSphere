@@ -39,7 +39,7 @@ public class Post implements Serializable {
 		this.tags = new LinkedList<Tag>();
 	}
 
-	public Post(String content, String slug, String title, Editor author, List<Tag> tags) {
+	public Post(String title, String content, String slug, Editor author, List<Tag> tags) {
 		super();
 		this.content = content;
 		this.slug = slug;
@@ -48,7 +48,7 @@ public class Post implements Serializable {
 		this.author = author;
 	}
 	
-	public Post(String content, String slug, String title, Editor author) {
+	public Post(String title, String content, String slug, Editor author) {
 		super();
 		this.content = content;
 		this.slug = slug;

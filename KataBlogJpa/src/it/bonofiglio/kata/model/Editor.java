@@ -37,7 +37,7 @@ public class Editor implements Serializable {
 		this.posts = new LinkedList<Post>();
 	}
 	
-	public Editor(String email, String name, String password) {
+	public Editor(String name, String email, String password) {
 		super();
 		this.email = email;
 		this.name = name;
@@ -45,7 +45,7 @@ public class Editor implements Serializable {
 		this.posts = new LinkedList<Post>();
 	}
 	
-	public Editor(String email, String name, String password, List<Post> posts) {
+	public Editor(String name, String email, String password, List<Post> posts) {
 		super();
 		this.email = email;
 		this.name = name;
@@ -95,7 +95,7 @@ public class Editor implements Serializable {
 	
 	@Override
 	public String toString() {
-	   return "{\"name\": \"" + this.name + "\", \"email\": \"" + this.email + "\"}";
+	   return "{\"name\": \"" + this.name + "\", \"email\": \"" + this.email + "\", \"password\": \"" + this.password + "\"}";
 	}
 
 }

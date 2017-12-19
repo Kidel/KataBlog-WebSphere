@@ -107,7 +107,7 @@ public class Post implements Serializable {
 	
 	@Override
 	public String toString() {
-	   return "{\"title\": \"" + this.title + "\", \"content\": \"" + this.content + "\", \"tags\": \"" + this.tags.toString() + "\"}";
+	   return "{\"title\": \"" + this.title + "\", \"content\": \"" + this.content + "\"}";
 	}
 
 }

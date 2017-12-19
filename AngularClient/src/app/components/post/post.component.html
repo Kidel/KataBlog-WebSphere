@@ -4,17 +4,21 @@
       <h1 class="blog-title">
         Blog
       </h1>
+      <hr class="my-4" />
     </div>
   </div>
 
   <main role="main" class="container">
     <div class="row">
       <div class="col-sm-8 blog-main">
-
-          <div class="blog-post" *ngFor="let post of posts">
+        
+        <div *ngFor="let post of posts.reverse()">
+          <div class="blog-post">
             <h2 class="blog-post-title">{{post.title}}</h2>
               <p>{{post.content}}</p>
           </div>
+          <hr class="my-4" />
+        </div>
 
       </div>
 

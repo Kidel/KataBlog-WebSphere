@@ -63,7 +63,7 @@ export class PostComponent implements OnInit {
     const title = e.target.elements['title'].value;
     const content = e.target.elements['content'].value;
     if(this.globals.logged) {
-      this.addPost({title: title, content: content, authorId: this.globals.currentUserId});
+      this.addPost({title: title, content: content});
       this.statusMessage = "";
     }
     else 

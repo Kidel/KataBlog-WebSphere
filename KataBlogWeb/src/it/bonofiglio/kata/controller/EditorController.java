@@ -26,11 +26,11 @@ public class EditorController extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 		String paramValue = request.getParameter("id");
-		if (paramValue==null) {
-			out.println("{\"status\": \"success\", \"message\": " + uf.getAllEditors().toString() + "}");
-		}
-		else 
-			out.println("{\"status\": \"success\", \"message\": " + uf.getEditor(Long.parseLong(paramValue)).toString() + "}");
+			if (paramValue==null) {
+				out.println("{\"status\": \"success\", \"message\": " + uf.getAllEditors().toString() + "}");
+			}
+			else 
+				out.println("{\"status\": \"success\", \"message\": " + uf.getEditor(Long.parseLong(paramValue)).toString() + "}");
 		}
 		catch(Exception e) {
 			System.out.println("DEBUG: " + e);

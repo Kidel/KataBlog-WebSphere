@@ -16,9 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class PostController
- */
 public class PostController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -33,14 +30,16 @@ public class PostController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		try {
-		String paramValue = request.getParameter("id");
-		if (paramValue==null) 
-			out.println("{\"status\": \"success\", \"message\": " + pf.getAllPosts().toString() + "}");
-		else 
-			out.println("{\"status\": \"success\", \"message\": " + pf.getPost(Long.parseLong(paramValue)).toString() + "}");
+			String paramValue = request.getParameter("id");
+			if (paramValue==null) {
+				out.println("{\"status\": \"success\", \"message\": " + pf.getAllPosts().toString() + "}");
+			}
+			else 
+				out.println("{\"status\": \"success\", \"message\": " + pf.getPost(Long.parseLong(paramValue)).toString() + "}");
 		}
 		catch(Exception e) {
 			System.out.println("DEBUG: " + e);
+			e.printStackTrace();
 			out.println("{\"status\": \"error\", \"message\": \"" + e + "\"}");
 		}
 	}
@@ -62,6 +61,7 @@ public class PostController extends HttpServlet {
 		}
 		catch(Exception e) {
 			System.out.println("DEBUG: " + e);
+			e.printStackTrace();
 			out.println("{\"status\": \"error\", \"message\": \"" + e + "\"}");
 		}
 	}

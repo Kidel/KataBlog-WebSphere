@@ -52,7 +52,6 @@ public class PostBean implements PostBeanLocal {
 		try {
 			this.pman.createPost(p);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return p;

@@ -20,6 +20,7 @@
 
       <aside class="col-sm-3 ml-sm-auto blog-sidebar">
         <div class="sidebar-module sidebar-module-inset">
+          <h4>Add a new post</h4>
           <form (submit)="submitPost($event)">
             <div class="form-group">
               <label>Title</label>
@@ -30,6 +31,7 @@
               <textarea class="form-control" rows="5" name="content"></textarea>
             </div>
             <input type="submit" value="Add Post" class="btn btn-primary">
+            <div class="alert alert-danger" role="alert" *ngIf="statusMessage.length > 0">{{statusMessage}}</div>
           </form>
         </div>
       </aside>

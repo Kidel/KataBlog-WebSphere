@@ -11,6 +11,7 @@ import javax.ejb.Local;
 public interface PostBeanLocal {
 	public Post createPost(String title, String content, String slug, Editor author, List<Tag> tags);
 	public Post createPost(String title, String content, String slug, Editor author);
+	public Post createPost(String title, String content, String slug, Long authorId);
 	public Post getPost(Long id);
 	public List<Post> getAllPosts();
 	public List<Post> getAllPostsByAuthor(Editor author);

@@ -4,4 +4,5 @@ import { Injectable } from '@angular/core';
 export class Globals {
   logged:boolean = false;
   currentPage:String = "home";
+  currentUserId = -1; // workaround foe websphere bug. Don't do this
 }

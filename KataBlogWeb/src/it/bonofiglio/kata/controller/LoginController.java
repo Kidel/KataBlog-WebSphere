@@ -43,7 +43,7 @@ public class LoginController extends HttpServlet {
 			String password = params.get("password");
 			
 			if(this.lf.login(email, password))
-				out.println("{\"status\": \"success\"}");
+				out.println("{\"status\": \"success\", \"message\":" + this.lf.getCurrentEditor().getId() + "}");
 			else 
 				out.println("{\"status\": \"error\", \"message\": \"Invalid username or password\"}");
 		}

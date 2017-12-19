@@ -14,6 +14,7 @@ export class PostComponent implements OnInit {
   constructor(private globals: Globals, private http: HttpClient) { }
 
   posts = [];
+  statusMessage:String = "";
 
   requestResponseBehavior = data => {
     if (data['status'] === 'success') {
@@ -27,6 +28,7 @@ export class PostComponent implements OnInit {
   postResponseBehavior = data => {
     if (data['status'] === 'success') {
       console.log('Post successful');
+      this.getPosts();
     } else {
       console.log('Error from the server');
       console.log(data['message']);
@@ -60,8 +62,12 @@ export class PostComponent implements OnInit {
     e.preventDefault();
     const title = e.target.elements['title'].value;
     const content = e.target.elements['content'].value;
-
-    this.addPost({title: title, content: content});
+    if(this.globals.currentUserId != -1) { // workaround foe websphere bug. Don't do this
+      this.addPost({title: title, content: content, authorId: this.globals.currentUserId});
+      this.statusMessage = "";
+    }
+    else 
+      this.statusMessage = "Not logged in";
   }
 
 }

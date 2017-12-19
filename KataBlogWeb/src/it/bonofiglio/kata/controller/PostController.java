@@ -1,5 +1,6 @@
 package it.bonofiglio.kata.controller;
 
+import it.bonofiglio.kata.bean.LoginBeanLocal;
 import it.bonofiglio.kata.bean.PostBeanLocal;
 import it.bonofiglio.kata.utils.JsonConfigParser;
 import it.bonofiglio.kata.utils.ServletUtils;
@@ -23,6 +24,9 @@ public class PostController extends HttpServlet {
 	
 	@EJB
 	private PostBeanLocal pf;
+	
+	@EJB
+	private LoginBeanLocal lf;
        
     public PostController() { }
 
@@ -51,10 +55,9 @@ public class PostController extends HttpServlet {
 		try {
 			String title = params.get("title");
 			String content = params.get("content");
-			Long authorId = Long.parseLong(params.get("author"));
 			String slug = (new StringUtils()).generateSlug(params.get("title"));
 			
-			this.pf.createPost(title, content, slug, authorId);
+			this.pf.createPost(title, content, slug, this.lf.getCurrentEditor());
 			out.println("{\"status\": \"success\"}");
 		}
 		catch(Exception e) {

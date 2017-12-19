@@ -52,7 +52,6 @@ export class LoginComponent implements OnInit {
       console.log("Logged in");
       this.globals.logged=true
       this.statusMessage = "";
-      this.globals.currentUserId = data['message'];
     }
   }
 

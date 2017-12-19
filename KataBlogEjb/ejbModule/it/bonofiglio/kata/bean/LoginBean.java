@@ -24,8 +24,12 @@ public class LoginBean implements LoginBeanLocal {
 	}
     
     public boolean login(String email, String password) {
-    	Editor currentEditor = eman.findEditorByEmail(email);
-    	return currentEditor.getPassword().equals(password);
+    	Editor editor = eman.findEditorByEmail(email);
+    	if(editor.getPassword().equals(password)) {
+    		this.currentEditor = editor;
+    		return true;
+    	}
+    	return false;
     }
     
     public Editor getCurrentEditor() {

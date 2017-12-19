@@ -62,7 +62,7 @@ export class PostComponent implements OnInit {
     e.preventDefault();
     const title = e.target.elements['title'].value;
     const content = e.target.elements['content'].value;
-    if(this.globals.currentUserId != -1) { // workaround foe websphere bug. Don't do this
+    if(this.globals.logged) {
       this.addPost({title: title, content: content, authorId: this.globals.currentUserId});
       this.statusMessage = "";
     }

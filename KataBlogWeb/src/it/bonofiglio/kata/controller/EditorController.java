@@ -34,6 +34,7 @@ public class EditorController extends HttpServlet {
 		}
 		catch(Exception e) {
 			System.out.println("DEBUG: " + e);
+			e.printStackTrace();
 			out.println("{\"status\": \"error\", \"message\": \"" + e + "\"}");
 		}
 	}
@@ -57,6 +58,7 @@ public class EditorController extends HttpServlet {
 		}
 		catch(Exception e) {
 			System.out.println("DEBUG: " + e);
+			e.printStackTrace();
 			out.println("{\"status\": \"error\", \"message\": \"" + e + "\"}");
 		}
 	}
